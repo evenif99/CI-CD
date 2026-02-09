@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h2>과일 정보</h2>
+<table border="1">
+    <thead>
+        <tr>
+            <th>아이디</th>
+            <th>상품명</th>
+            <th>단가</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for fruit in fruit_list %}
+            <tr>
+                <td>{{fruit.id}}</td>
+                <td>{{fruit.name}}</td>
+                <td>{{fruit.price}}원</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+</body>
+</html>
