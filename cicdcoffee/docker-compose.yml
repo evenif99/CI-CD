@@ -1,0 +1,7 @@
+services:
+  springboot:
+    image: image-springboot:latest
+    container_name: cntr-springboot
+    ports:
+      - "9000:9000"
+    restart: always
