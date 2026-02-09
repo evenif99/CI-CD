@@ -4,11 +4,11 @@ on:
   push:
     branches:
       - master
+  workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout source
         uses: actions/checkout@v4
@@ -16,18 +16,10 @@ jobs:
       - name: Set up JDK 21
         uses: actions/setup-java@v4
         with:
-          java-version: '21'
-          distribution: 'temurin'
-          cache: maven
+          java-version: "21"
+          distribution: temurin
+          # cache: maven  <-- 제거 (pom.xml이 루트에 없어서 setup-java 단계에서 실패함)
 
       - name: Build with Maven
-        run: mvn clean package -DskipTests
-
-      - name: Login to DockerHub
-        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
-
-      - name: Build Docker Image
-        run: docker build -t ugcadman/cicd-springboot:latest -f SpringDockerFile .
-
-      - name: Push Docker Image
-        run: docker push ugcadman/cicd-springboot:latest
+        working-directory: cicdcoffee
+        run: mvn -B clean package -DskipTests
